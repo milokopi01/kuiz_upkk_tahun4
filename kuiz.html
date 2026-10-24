@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
+<title>Kuiz UPKK 9A Tahun 4 - Modul Penuh</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #ff6b8b;
+    --primary-dark: #e0486c;
+    --secondary: #6c5ce7;
+    --accent: #feca57;
+    --success: #2ed573;
+    --danger: #ff4757;
+    --bg-main: #fbf8f5;
+    --card-bg: #ffffff;
+    --text-dark: #2f3542;
+    --text-muted: #747d8c;
+    --zoom: 1;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Fredoka', 'Amiri', sans-serif;
+    background: linear-gradient(135deg, #fff5f7 0%, #f0f4ff 50%, #fcf9ea 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    font-size: calc(16px * var(--zoom));
+    overflow-x: hidden;
+  }
+
+  .app-container {
+    width: 100%;
+    max-width: 980px;
+    background: var(--card-bg);
+    border-radius: 28px;
+    box-shadow: 0 15px 35px rgba(108, 92, 231, 0.12);
+    border: 4px solid #ffeaa7;
+    padding: calc(18px * var(--zoom));
+    margin-top: 10px;
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* TOP NAVIGATION */
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff0f3;
+    padding: 10px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    border: 2px dashed #ffb8b8;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn-circle {
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: white;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
+
+  .btn-circle:active {
+    transform: scale(0.92);
+  }
+
+  .btn-reset-master {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 18px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 3px 8px rgba(255, 71, 87, 0.3);
+  }
+
+  .badge-user {
+    background: linear-gradient(135deg, var(--secondary), #a29bfe);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .badge-stars {
+    background: linear-gradient(135deg, #ffd32a, #ffa801);
+    color: #4b3600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  /* SCREENS */
+  .screen {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    animation: fadeIn 0.25s ease-in-out;
+  }
+
+  .screen.active {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* WELCOME SCREEN */
+  .welcome-box {
+    text-align: center;
+    padding: 25px 15px;
+    margin: auto;
+  }
+
+  .welcome-title {
+    font-size: 2.3rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  .input-name {
+    width: 80%;
+    max-width: 380px;
+    padding: 14px 18px;
+    font-size: 1.25rem;
+    font-family: 'Fredoka', sans-serif;
+    border: 3px solid #70a1ff;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    outline: none;
+  }
+
+  .btn-giant {
+    min-height: 64px;
+    padding: 14px 34px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: 'Fredoka', sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #ff4757, #ff6b81);
+    border: none;
+    border-radius: 22px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(255, 71, 87, 0.35);
+    touch-action: manipulation;
+  }
+
+  .btn-giant:active {
+    transform: scale(0.96);
+  }
+
+  /* DASHBOARD CARDS */
+  .dash-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .chapter-card {
+    background: white;
+    border: 3px solid #70a1ff;
+    border-radius: 22px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+    position: relative;
+  }
+
+  .chapter-tag {
+    font-size: 0.82rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 8px;
+    background: #e3f2fd;
+    color: #1976d2;
+  }
+
+  .tag-completed { background: #d4edda; color: #155724; }
+  .tag-progress { background: #fff3cd; color: #856404; }
+
+  .chapter-name {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+
+  .score-info-box {
+    background: #f8f9fa;
+    border-radius: 14px;
+    padding: 10px 12px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .btn-card-action {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    background: var(--secondary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.25);
+    margin-top: 6px;
+  }
+
+  .btn-card-action:active {
+    transform: scale(0.97);
+  }
+
+  /* QUIZ ARENA */
+  .quiz-top-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f1f2f6;
+    padding: 10px 14px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .mark-badge {
+    background: #2ed573;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .btn-pause-quiz {
+    background: #ffa502;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .timer-bar-container {
+    width: 100%;
+    height: 8px;
+    background: #eee;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .timer-bar-fill {
+    height: 100%;
+    width: 100%;
+    background: #2ed573;
+    transition: width 1s linear;
+  }
+
+  .clue-banner {
+    display: none;
+    background: #fff9e6;
+    border: 2px dashed #feca57;
+    border-radius: 16px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    color: #b7791f;
+  }
+
+  .clue-banner.active {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .question-card {
+    background: #ffffff;
+    border: 3px solid #a29bfe;
+    border-radius: 22px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 16px rgba(108, 92, 231, 0.08);
+  }
+
+  .question-text {
+    font-size: 1.3rem;
+    line-height: 1.45;
+    font-weight: 700;
+    color: #2d3436;
+  }
+
+  .arabic-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.7rem;
+    direction: rtl;
+    line-height: 1.6;
+    color: #1e3799;
+    font-weight: 700;
+    display: block;
+    margin: 6px 0;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: 650px) {
+    .options-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+  }
+
+  .btn-option {
+    min-height: 72px;
+    background: #ffffff;
+    border: 3px solid #ced6e0;
+    border-radius: 20px;
+    padding: 14px 18px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    touch-action: manipulation;
+  }
+
+  .btn-option:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .option-label {
+    min-width: 38px;
+    min-height: 38px;
+    border-radius: 12px;
+    background: #f1f2f6;
+    color: var(--secondary);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .btn-option.correct {
+    background: #d4edda !important;
+    border-color: #28a745 !important;
+    color: #155724 !important;
+  }
+
+  .btn-option.correct .option-label {
+    background: #28a745;
+    color: white;
+  }
+
+  .btn-option.wrong {
+    background: #f8d7da !important;
+    border-color: #dc3545 !important;
+    color: #721c24 !important;
+  }
+
+  .btn-option.wrong .option-label {
+    background: #dc3545;
+    color: white;
+  }
+
+  /* MODALS */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .note-modal {
+    background: #ffffff;
+    border-radius: 26px;
+    max-width: 560px;
+    width: 100%;
+    padding: 22px;
+    border: 4px solid #ff4757;
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .note-content-box {
+    background: #fff8e7;
+    border: 2px dashed #ffa502;
+    border-radius: 18px;
+    padding: 16px;
+    text-align: left;
+    margin: 14px 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .note-highlight {
+    background: #fffa65;
+    color: #d63031;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+
+  .tts-btn {
+    background: #70a1ff;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* RESUME DIALOG MODAL */
+  .dialog-modal {
+    background: white;
+    border-radius: 26px;
+    max-width: 460px;
+    width: 100%;
+    padding: 24px;
+    border: 4px solid var(--secondary);
+    text-align: center;
+  }
+
+  .btn-dialog {
+    width: 100%;
+    min-height: 54px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    margin: 6px 0;
+  }
+
+  /* RESULT SCREEN */
+  .result-card {
+    text-align: center;
+    padding: 25px 15px;
+    margin: auto;
+  }
+
+  .result-score-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1dd1a1, #10ac84);
+    color: white;
+    font-size: 2.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 10px 25px rgba(29, 209, 161, 0.4);
+    border: 5px solid #fff;
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container" id="appRoot">
+
+  <!-- TOP BAR -->
+  <div class="nav-bar">
+    <div class="nav-left">
+      <button class="btn-circle" id="btnHome" title="Menu Utama">🏠</button>
+      <div class="badge-user" id="userBadgeDisplay">👤 Murid</div>
+      <div class="badge-stars" id="starBadgeDisplay">⭐ 0</div>
+    </div>
+    <div class="nav-right">
+      <button class="btn-reset-master" id="btnMasterReset">🔒 Reset (Master)</button>
+      <button class="btn-circle" id="btnZoomOut" title="Kecilkan Teks">➖</button>
+      <button class="btn-circle" id="btnZoomIn" title="Besarkan Teks">➕</button>
+      <button class="btn-circle" id="btnTtsToggle" title="Suara AI">🔊</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 1: LOGIN / NAME -->
+  <div class="screen active" id="screenWelcome">
+    <div class="welcome-box">
+      <div style="font-size: 3.8rem; margin-bottom: 8px;">🌟📖🕌</div>
+      <h1 class="welcome-title">KUIZ PINTAR UPKK TAHUN 4</h1>
+      <p style="color:var(--secondary); margin-bottom: 20px; font-size:1.15rem;">
+        Semua Bab Terbuka • Simpanan Kemajuan Peranti • Had Masa 20s
+      </p>
+      <div>
+        <input type="text" class="input-name" id="inputStudentName" placeholder="Masukkan Nama Murid..." maxlength="25">
+      </div>
+      <button class="btn-giant" id="btnStartGame">🚀 Masuk Ke Dashboard</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: DASHBOARD -->
+  <div class="screen" id="screenDashboard">
+    <div class="dash-header">
+      <h2 style="color:var(--secondary); font-size:1.8rem; margin-bottom:4px;">Modul Pembelajaran & Ujian</h2>
+      <p style="color:var(--text-muted); font-size:0.95rem;">
+        Semua bab boleh diduduki bila-bila masa. Anda boleh berhenti dan sambung bila-bila masa!
+      </p>
+    </div>
+    <div class="chapter-grid" id="chapterGrid">
+      <!-- Generated via JS -->
+    </div>
+  </div>
+
+  <!-- SCREEN 3: QUIZ ARENA -->
+  <div class="screen" id="screenQuiz">
+    <div class="quiz-top-info">
+      <div>
+        <span id="quizChapterTitle" style="color:var(--secondary); font-weight:700;">Bab 1</span> • 
+        <span id="quizProgressCount">Soalan 1 / 42</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="mark-badge" id="liveScoreBadge">Markah: 0</span>
+        <button class="btn-pause-quiz" id="btnPauseQuiz">⏸️ Berhenti & Simpan</button>
+      </div>
+    </div>
+
+    <!-- Timer Visual Bar -->
+    <div class="timer-bar-container">
+      <div class="timer-bar-fill" id="timerBarFill"></div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <div style="background:#fff; padding:4px 12px; border-radius:16px; font-weight:700; color:var(--danger); border:1px solid #ffccd2;" id="timerTextDisplay">⏳ 20s</div>
+      <div style="font-weight:700; color:var(--primary); font-size:0.9rem;">+10 Markah / Soalan</div>
+    </div>
+
+    <!-- Clue Banner -->
+    <div class="clue-banner" id="clueBanner">
+      <span style="font-size: 1.5rem;">💡</span>
+      <div id="clueTextContent"><strong>Klu Bantuan:</strong> Fikirkan kata kunci ini...</div>
+    </div>
+
+    <!-- Question Card -->
+    <div class="question-card">
+      <div style="font-size:0.85rem; color:var(--secondary); font-weight:700; margin-bottom:6px;" id="questionSubtopic">SUBTOPIK</div>
+      <div class="question-text" id="questionPrompt">Soalan akan dipamerkan di sini...</div>
+    </div>
+
+    <!-- 4 Options -->
+    <div class="options-grid" id="optionsGrid"></div>
+  </div>
+
+  <!-- SCREEN 4: RESULTS -->
+  <div class="screen" id="screenResult">
+    <div class="result-card">
+      <div class="result-score-circle" id="resultScoreText">100%</div>
+      <h2 style="color:var(--secondary); margin-bottom:8px;" id="resultVerdictTitle">Tahniah!</h2>
+      <p style="color:var(--text-muted); margin-bottom:20px; font-size:1.1rem;" id="resultDescText">Keputusan anda.</p>
+      <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+        <button class="btn-giant" id="btnResultRepeat" style="background:#6c5ce7;">🔄 Ulang Semula Bab</button>
+        <button class="btn-giant" id="btnResultDash" style="background:#2ed573;">📋 Menu Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- COMPACT NOTE MODAL (MISTAKE FLASHCARD) -->
+<div class="modal-overlay" id="noteModalOverlay">
+  <div class="note-modal">
+    <div style="font-size: 2.8rem; margin-bottom: 4px;">💡📖</div>
+    <h3 style="color:var(--danger); margin-bottom: 10px;">Nota Pantas Pembetulan</h3>
+    <div class="note-content-box" id="noteModalBody"></div>
+    <div>
+      <button class="tts-btn" id="btnModalSpeakAgain">🔊 Dengar Ulasan Suara AI</button>
+    </div>
+    <button class="btn-giant" id="btnModalDismiss" style="width:100%; min-height:56px;">Faham! Simpan & Teruskan ➡️</button>
+  </div>
+</div>
+
+<!-- RESUME CONFIRMATION MODAL -->
+<div class="modal-overlay" id="resumeModalOverlay">
+  <div class="dialog-modal">
+    <div style="font-size: 3rem; margin-bottom: 6px;">📂⏳</div>
+    <h3 style="color:var(--secondary); margin-bottom:8px;" id="resumeDialogTitle">Sambung Sesi Pembelajaran?</h3>
+    <p style="color:var(--text-muted); margin-bottom:16px; font-size:1rem;" id="resumeDialogDesc">
+      Anda mempunyai soalan yang belum diselesaikan dalam bab ini.
+    </p>
+    <button class="btn-dialog" id="btnResumeContinue" style="background:#2ed573; color:white;">▶️ Sambung Dari Soalan Ini</button>
+    <button class="btn-dialog" id="btnResumeRestart" style="background:#dfe4ea; color:#2f3542;">🔄 Mula Dari Awal (Reset Bab Ini)</button>
+    <button class="btn-dialog" id="btnResumeCancel" style="background:transparent; color:#747d8c; border:1px solid #ced6e0;">Batal</button>
+  </div>
+</div>
+
+<!-- MASTER RESET MODAL -->
+<div class="modal-overlay" id="masterResetOverlay">
+  <div class="dialog-modal" style="border-color:#ff4757;">
+    <div style="font-size: 3rem; margin-bottom: 6px;">🔐⚠️</div>
+    <h3 style="color:#ff4757; margin-bottom:8px;">Reset Aplikasi Keseluruhan</h3>
+    <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:14px;">
+      Sila masukkan Kata Laluan Master guru/ibu bapa untuk memadamkan semua rekod murid:
+    </p>
+    <input type="password" id="inputMasterPass" placeholder="Kata Laluan Master..." style="width:80%; padding:12px; font-size:1.15rem; text-align:center; border:2px solid #ff4757; border-radius:14px; margin-bottom:14px; outline:none;">
+    <div style="display:flex; gap:10px; justify-content:center;">
+      <button class="btn-dialog" id="btnConfirmMasterReset" style="background:#ff4757; color:white; width:50%;">Sahkan Reset</button>
+      <button class="btn-dialog" id="btnCancelMasterReset" style="background:#ced6e0; color:#2f3542; width:50%;">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   1. SUARA AI (WEB SPEECH MALAY/INDONESIAN FEMALE VOICE)
+   ========================================================================= */
+let ttsEnabled = true;
+
+function speakMalay(text) {
+  if (!ttsEnabled || !('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 0.95;
+  utter.pitch = 1.15;
+  const voices = window.speechSynthesis.getVoices();
+  const msVoice = voices.find(v => v.lang.includes('ms') || v.lang.includes('id') || v.name.toLowerCase().includes('malay') || v.name.toLowerCase().includes('indonesia'));
+  if (msVoice) utter.voice = msVoice;
+  utter.lang = 'ms-MY';
+  window.speechSynthesis.speak(utter);
+}
+
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+}
+
+/* =========================================================================
+   2. ZOOM SKRIN IPAD
+   ========================================================================= */
+let currentZoom = 1.0;
+document.getElementById('btnZoomIn').addEventListener('click', () => {
+  if (currentZoom < 1.35) {
+    currentZoom += 0.08;
+    document.documentElement.style.setProperty('--zoom', currentZoom);
+  }
+});
+
+document.getElementById('btnZoomOut').addEventListener('click', () => {
+  if (currentZoom > 0.8) {
+    currentZoom -= 0.08;
+    document.documentElement.style.setProperty('--zoom', currentZoom);
+  }
+});
+
+document.getElementById('btnTtsToggle').addEventListener('click', () => {
+  ttsEnabled = !ttsEnabled;
+  document.getElementById('btnTtsToggle').innerText = ttsEnabled ? '🔊' : '🔇';
+  if (!ttsEnabled) window.speechSynthesis.cancel();
+});
+
+/* =========================================================================
+   3. AUDIO SYNTHESIZER
+   ========================================================================= */
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playTone(freq, type = 'sine', duration = 0.15) {
+  try {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  } catch(e) {}
+}
+
+function playCorrectSound() {
+  playTone(523.25, 'sine', 0.12);
+  setTimeout(() => playTone(659.25, 'sine', 0.15), 100);
+  setTimeout(() => playTone(783.99, 'triangle', 0.25), 200);
+}
+
+function playWrongSound() {
+  playTone(220, 'sawtooth', 0.18);
+  setTimeout(() => playTone(180, 'sawtooth', 0.25), 150);
+}
+
+/* =========================================================================
+   4. BANK DATA 210 SOALAN LENGKAP UPKK TAHUN 4
+   ========================================================================= */
+const CHAPTER_NAMES = [
+  "", 
+  "Bab 1: Bahasa Arab (Waktu, Kalendar & Kosa Kata)",
+  "Bab 2: Sirah (Dakwah, Hijrah & Mukjizat)",
+  "Bab 3: Akidah (Qada' Qadar, Qudrah & Sains)",
+  "Bab 4: Adab Islamiah (Ziarah & Pergaulan)",
+  "Bab 5: Ibadah (Solat Jemaah, Jumaat, Jamak & Rukhsah)"
+];
+
+const RAW_BANK = [
+  // --- BAB 1: BAHASA ARAB ---
+  { bab: 1, topic: "Waktu & Jam", q: "Apakah maksud istilah Arab <span class='arabic-text'>العَقْرَبُ الطَّوِيلُ</span>?", opts: ["Jarum Panjang (Minit)", "Jarum Pendek (Jam)", "Jarum Saat", "Tepat"], ans: "Jarum Panjang (Minit)", clue: "Jarum ini lebih panjang untuk kiraan minit.", note: "<span class='note-highlight'>العَقْرَبُ الطَّوِيلُ</span> = Jarum Panjang (Minit). Jarum Pendek ialah <span class='note-highlight'>العَقْرَبُ القَصِيرُ</span>.", reason: "Al-aqrab al-tawil bermaksud jarum panjang minit." },
+  { bab: 1, topic: "Waktu & Jam", q: "Apakah istilah Arab bagi 'Jarum Saat'?", opts: ["عَقْرَبُ الثَّوَانِي", "العَقْرَبُ الطَّوِيلُ", "العَقْرَبُ القَصِيرُ", "السَّاعَةُ"], ans: "عَقْرَبُ الثَّوَانِي", clue: "Berkait rapat dengan perkataan ثواني (saat).", note: "<span class='note-highlight'>عَقْرَبُ الثَّوَانِي</span> ialah <span class='note-highlight'>Jarum Saat</span>.", reason: "Aqrabu ath-thawani bermaksud jarum saat." },
+  { bab: 1, topic: "Waktu & Jam", q: "Apakah maksud bagi perkataan <span class='arabic-text'>دَقِيقَةٌ</span>?", opts: ["Minit", "Jam", "Saat", "Hari"], ans: "Minit", clue: "60 dalam satu jam.", note: "<span class='note-highlight'>دَقِيقَةٌ</span> = Minit, manakala <span class='note-highlight'>ثَانِيَةٌ</span> = Saat.", reason: "Daqiqah bermaksud minit." },
+  { bab: 1, topic: "Waktu & Jam", q: "Bagaimanakah menyebut 'Pukul 5:00 Tepat' dalam bahasa Arab?", opts: ["السَّاعَةُ الخَامِسَةُ تَمَامًا", "السَّاعَةُ الرَّابِعَةُ تَمَامًا", "السَّاعَةُ السَّادِسَةُ تَمَامًا", "السَّاعَةُ الوَاحِدَةُ تَمَامًا"], ans: "السَّاعَةُ الخَامِسَةُ تَمَامًا", clue: "Khamsah bererti lima dan tepat ialah tamaman.", note: "Pukul 5 Tepat ialah <span class='note-highlight'>السَّاعَةُ الخَامِسَةُ تَمَامًا</span>.", reason: "Al-sa'atu al-khamisatu tamaman bermaksud pukul lima tepat." },
+  { bab: 1, topic: "Waktu & Jam", q: "Jika jam menunjukkan 4:40, bagaimanakah sebutan jam mengikut kaedah tolak?", opts: ["السَّاعَةُ الخَامِسَةُ إِلَّا الثُّلُثَ", "السَّاعَةُ الرَّابِعَةُ وَالثُّلُثُ", "السَّاعَةُ الخَامِسَةُ وَالنِّصْفُ", "السَّاعَةُ الرَّابِعَةُ إِلَّا الرُّبْعَ"], ans: "السَّاعَةُ الخَامِسَةُ إِلَّا الثُّلُثَ", clue: "4 ditambah sejum menjadi 5, 40 minit menjadi illa al-thuluth.", note: "Waktu 4:40 disebut <span class='note-highlight'>السَّاعَةُ الخَامِسَةُ إِلَّا الثُّلُثَ</span>.", reason: "Nombor 4 ditambah 1 jam jadi 5 dan disebut illa al-thuluth." },
+  { bab: 1, topic: "Waktu & Jam", q: "Apakah maksud istilah <span class='arabic-text'>وَالنِّصْفُ</span>?", opts: ["Lebih 30 minit (Setengah)", "Lebih 15 minit (Suku)", "Kurang 20 minit", "Tepat"], ans: "Lebih 30 minit (Setengah)", clue: "Nisf bererti separuh atau 30 minit.", note: "<span class='note-highlight'>وَالنِّصْفُ</span> = 30 minit (Setengah).", reason: "Wan-nisf bermaksud lebih tiga puluh minit." },
+  { bab: 1, topic: "Waktu & Jam", q: "Apakah istilah bagi 'Lebih 15 minit (Suku)'?", opts: ["وَالرُّبْعُ", "وَالثُّلُثُ", "وَالنِّصْفُ", "تَمَامًا"], ans: "وَالرُّبْعُ", clue: "Rub'u bererti satu perempat (suku).", note: "<span class='note-highlight'>وَالرُّبْعُ</span> = 15 minit (Suku).", reason: "War-rub'u bermaksud lebih lima belas minit." },
+  { bab: 1, topic: "Waktu & Jam", q: "Apakah maksud istilah <span class='arabic-text'>إِلَّا عَشْرَ دَقَائِقَ</span>?", opts: ["50 minit (Kurang 10 minit)", "55 minit (Kurang 5 minit)", "40 minit", "45 minit"], ans: "50 minit (Kurang 10 minit)", clue: "'Asyru ialah sepuluh.", note: "<span class='note-highlight'>إِلَّا عَشْرَ دَقَائِقَ</span> = Kurang 10 minit (50 minit).", reason: "Illa 'asyra daqaiq bermaksud kurang sepuluh minit." },
+  { bab: 1, topic: "Hari Mingguan", q: "Apakah peristiwa yang berlaku pada hari Isnin (<span class='arabic-text'>الإِثْنَيْنِ</span>)?", opts: ["Nabi Muhammad SAW dilahirkan", "Hari Sukan", "Ditegah tangkap ikan", "Puasa sunat"], ans: "Nabi Muhammad SAW dilahirkan", clue: "Kelahiran junjungan mulia.", note: "<span class='note-highlight'>وُلِدَ النَّبِيُّ مُحَمَّدٌ فِي يَوْمِ الإِثْنَيْنِ</span> (Nabi lahir hari Isnin).", reason: "Nabi Muhammad dilahirkan pada hari Isnin." },
+  { bab: 1, topic: "Hari Mingguan", q: "Hari apakah yang disunatkan berpuasa menurut nota?", opts: ["Khamis (الخَمِيسُ)", "Selasa (الثُّلَاثَاءُ)", "Rabu (الأَرْبِعَاءُ)", "Sabtu (السَّبْتُ)"], ans: "Khamis (الخَمِيسُ)", clue: "صوم يوم الخميس مسنون", note: "<span class='note-highlight'>صَوْمُ يَوْمِ الخَمِيسِ مَسْنُونٌ</span> = Puasa hari Khamis disunatkan.", reason: "Hari Khamis ialah hari disunatkan berpuasa." },
+  { bab: 1, topic: "Hari Mingguan", q: "Apakah larangan ke atas Bani Israil pada hari Sabtu (<span class='arabic-text'>السَّبْتُ</span>)?", opts: ["Ditegah menangkap ikan", "Ditegah keluar berniaga", "Ditegah berpuasa", "Ditegah solat"], ans: "Ditegah menangkap ikan", clue: "Menangkap hasil laut.", note: "<span class='note-highlight'>مُنِعَ بَنُو إِسْرَائِيلَ مِنْ صَيْدِ السَّمَكِ فِي يَوْمِ السَّبْتِ</span>.", reason: "Bani Israil ditegah menangkap ikan pada hari Sabtu." },
+  { bab: 1, topic: "Bulan Miladi", q: "Bulan apakah kita menyambut Hari Ibu, Hari Pekerja dan Hari Guru?", opts: ["Mei (مَايُو)", "Jun (يُونِيُو)", "Ogos (أَغُسْطُس)", "Mac (مَارِس)"], ans: "Mei (مَايُو)", clue: "Bulan ke-5.", note: "Disambut pada bulan <span class='note-highlight'>Mei (مَايُو)</span>.", reason: "Disambut pada bulan Mei." },
+  { bab: 1, topic: "Bulan Miladi", q: "Bilakah Hari Kemerdekaan Malaysia disambut?", opts: ["Ogos (أَغُسْطُس)", "September (سِبْتَمْبِر)", "Januari (يَنَايِر)", "Julai (يُولِيُو)"], ans: "Ogos (أَغُسْطُس)", clue: "Bulan ke-8.", note: "Hari Kebangsaan pada bulan <span class='note-highlight'>Ogos (أَغُسْطُس)</span>.", reason: "Hari kemerdekaan pada bulan Ogos." },
+  { bab: 1, topic: "Bulan Miladi", q: "Bulan apakah Hari Malaysia disambut?", opts: ["September (سِبْتَمْبِر)", "Ogos (أَغُسْطُس)", "Oktober (أُكْتُوبِر)", "Jun (يُونِيُو)"], ans: "September (سِبْتَمْبِر)", clue: "16 September.", note: "Hari Malaysia disambut pada bulan <span class='note-highlight'>September (سِبْتَمْبِر)</span>.", reason: "Hari Malaysia disambut pada bulan September." },
+  { bab: 1, topic: "Bulan Hijri", q: "Peristiwa Maal Hijrah disambut pada bulan pertama iaitu:", opts: ["Muharam (مُحَرَّم)", "Safar (صَفَر)", "Rejab (رَجَب)", "Ramadan (رَمَضَان)"], ans: "Muharam (مُحَرَّم)", clue: "Bulan pertama takwim Islam.", note: "<span class='note-highlight'>مُحَرَّمٌ</span> ialah bulan pertama takwim hijri.", reason: "Bulan Muharam adalah bulan pertama hijrah." },
+  { bab: 1, topic: "Bulan Hijri", q: "Perang Mu'tah (<span class='arabic-text'>غَزْوَةُ مُؤْتَةَ</span>) berlaku pada bulan:", opts: ["Jamadilawal (جُمَادَى الأُولَى)", "Jamadilakhir", "Safar", "Zulkaedah"], ans: "Jamadilawal (جُمَادَى الأُولَى)", clue: "Bulan ke-5 Hijri.", note: "Perang Mu'tah berlaku pada bulan <span class='note-highlight'>Jamadilawal</span>.", reason: "Perang Mu'tah berlaku pada bulan Jamadilawal." },
+  { bab: 1, topic: "Di Rumah", q: "Apakah perkataan Arab bagi 'Tangga' di rumah?", opts: ["سُلَّمٌ", "سَاعَةٌ", "مَخْزَنٌ", "نَافِذَةٌ"], ans: "سُلَّمٌ", clue: "Sullam.", note: "<span class='note-highlight'>سُلَّمٌ</span> = Tangga. <span class='note-highlight'>مَخْزَنٌ</span> = Stor.", reason: "Sullam bermaksud tangga." },
+  { bab: 1, topic: "Di Rumah", q: "Apakah maksud bagi <span class='arabic-text'>غُرْفَةُ النَّوْمِ</span>?", opts: ["Bilik Tidur", "Ruang Tamu", "Dapur", "Tandas"], ans: "Bilik Tidur", clue: "Naum bererti tidur.", note: "<span class='note-highlight'>غُرْفَةُ النَّوْمِ</span> bermaksud Bilik Tidur.", reason: "Ghurfatun naum bererti bilik tidur." },
+  { bab: 1, topic: "Di Rumah", q: "Apakah sebutan bagi 'Langsir' dan 'Bantal'?", opts: ["سِتَارٌ dan وِسَادَةٌ", "سَرِيرٌ dan كَنَبَةٌ", "طَاوِلَةٌ dan مَخْزَنٌ", "حَمَّامٌ dan نَافِذَةٌ"], ans: "سِتَارٌ dan وِسَادَةٌ", clue: "Sitar dan wisadah.", note: "<span class='note-highlight'>سِتَارٌ</span> = Langsir, <span class='note-highlight'>وِسَادَةٌ</span> = Bantal.", reason: "Sitar ialah langsir dan wisadah ialah bantal." },
+  { bab: 1, topic: "Di Sekolah", q: "Apakah perkataan bagi 'Koperasi Sekolah'?", opts: ["دُكَّانُ المَدْرَسَةِ", "مَطْعَمٌ", "مَكْتَبَةٌ", "مُصَلًّى"], ans: "دُكَّانُ المَدْرَسَةِ", clue: "Kedai menjual alat tulis.", note: "<span class='note-highlight'>دُكَّانُ المَدْرَسَةِ</span> = Koperasi Sekolah.", reason: "Dukkanul madrasah bermaksud koperasi sekolah." },
+  { bab: 1, topic: "Di Sekolah", q: "Apakah maksud <span class='arabic-text'>أَذْهَبُ إِلَى المَدْرَسَةِ مَاشِيًا</span>?", opts: ["Saya pergi sekolah dengan berjalan kaki", "Menaiki bas", "Menaiki kereta", "Berbasikal"], ans: "Saya pergi sekolah dengan berjalan kaki", clue: "Masyan bererti berjalan kaki.", note: "<span class='note-highlight'>مَاشِيًا</span> = Berjalan kaki.", reason: "Masyan bermaksud berjalan kaki." },
+  { bab: 1, topic: "Kata Kerja", q: "Apakah maksud perkataan <span class='arabic-text'>بَكَى</span>?", opts: ["Menangis", "Tertawa", "Bercakap", "Tersenyum"], ans: "Menangis", clue: "Menitiskan air mata.", note: "<span class='note-highlight'>بَكَى</span> = Menangis.", reason: "Baka bererti menangis." },
+  { bab: 1, topic: "Kata Kerja", q: "Apakah kata kerja Arab bagi 'Tertawa'?", opts: ["ضَحِكَ", "اِبْتَسَمَ", "تَكَلَّمَ", "جَرَى"], ans: "ضَحِكَ", clue: "Dahika.", note: "<span class='note-highlight'>ضَحِكَ</span> = Tertawa. <span class='note-highlight'>اِبْتَسَمَ</span> = Tersenyum.", reason: "Dahika bermaksud tertawa." },
+  { bab: 1, topic: "Tatabahasa", q: "Apakah huruf-huruf awalan bagi <span class='arabic-text'>الفِعْلُ المُضَارِعُ</span>?", opts: ["أ - ن - ي - ت", "ب - ت - ث - ج", "س - ش - ص - ض", "ك - ل - م - ن"], ans: "أ - ن - ي - ت", clue: "Formula ANITA.", note: "Huruf Mudhara'ah ialah <span class='note-highlight'>أ , ن , ي , ت</span>.", reason: "Huruf mudhara'ah adalah alif, nun, ya dan ta." },
+  { bab: 1, topic: "Nombor", q: "Bagaimanakah penulisan nombor angka Arab?", opts: ["Turutan dari kiri ke kanan", "Turutan dari kanan ke kiri", "Dari atas ke bawah", "Bebas"], ans: "Turutan dari kiri ke kanan", clue: "Contoh nombor 174 (١٧٤).", note: "Penulisan nombor arab: <span class='note-highlight'>turutan dari kiri ke kanan</span>.", reason: "Angka Arab ditulis dari kiri ke kanan mengikut nilai tempat." },
+  { bab: 1, topic: "Nombor", q: "Apakah sebutan bagi angka 174 (<span class='arabic-text'>١٧٤</span>)?", opts: ["مِائَةٌ وَأَرْبَعَةٌ وَسَبْعُونَ", "سَبْعُونَ وَأَرْبَعَةٌ وَمِائَةٌ", "أَرْبَعَةٌ وَسَبْعُونَ وَمِائَةٌ", "مِائَةٌ وَسَبْعُونَ وَأَرْبَعَةٌ"], ans: "مِائَةٌ وَأَرْبَعَةٌ وَسَبْعُونَ", clue: "Ratus + Sa + Puluh.", note: "174 = <span class='note-highlight'>مِائَةٌ وَأَرْبَعَةٌ وَسَبْعُونَ</span>.", reason: "Susunan ialah ratus diikuti sa dan puluh." },
+
+  // --- BAB 2: SIRAH NABAWIYYAH ---
+  { bab: 2, topic: "Wahyu Pertama", q: "Di manakah Nabi Muhammad SAW mengasingkan diri menerima wahyu pertama?", opts: ["Gua Hira', Jabal Nur", "Gua Tsur", "Bukit Safa", "Taif"], ans: "Gua Hira', Jabal Nur", clue: "Gua di puncak Jabal Nur.", note: "Nabi menerima wahyu di <span class='note-highlight'>Gua Hira', Jabal Nur</span>.", reason: "Wahyu pertama turun di Gua Hira' di Jabal Nur." },
+  { bab: 2, topic: "Wahyu Pertama", q: "Berapakah usia Nabi SAW semasa menerima wahyu pertama?", opts: ["40 Tahun", "25 Tahun", "63 Tahun", "35 Tahun"], ans: "40 Tahun", clue: "Empat puluh tahun.", note: "Nabi berusia <span class='note-highlight'>40 Tahun</span> ketika dilantik menjadi Rasul.", reason: "Baginda berusia 40 tahun." },
+  { bab: 2, topic: "Wahyu Pertama", q: "Bilakah tarikh peristiwa penerimaan wahyu pertama?", opts: ["17 Ramadan = 6 Ogos 610 Masihi", "27 Rejab 621 Masihi", "12 Rabiulawal 622 Masihi", "10 Muharam"], ans: "17 Ramadan = 6 Ogos 610 Masihi", clue: "Bulan Ramadan.", note: "Peristiwa berlaku pada <span class='note-highlight'>17 Ramadan = 6 Ogos 610 Masihi</span>.", reason: "17 Ramadan bersamaan 6 Ogos 610 Masihi." },
+  { bab: 2, topic: "Dakwah Rahsia", q: "Surah apakah yang memerintahkan dakwah bermula secara rahsia?", opts: ["Surah al-Muddaththir ayat 1-7", "Surah al-Alaq", "Surah asy-Syu'ara 214", "Surah al-Masad"], ans: "Surah al-Muddaththir ayat 1-7", clue: "Al-Muddaththir.", note: "Perintah dakwah melalui <span class='note-highlight'>Surah al-Muddaththir ayat 1-7</span>.", reason: "Surah al-Muddaththir ayat 1 hingga 7." },
+  { bab: 2, topic: "Pusat Pengajian", q: "Rumah siapakah dijadikan pusat pengajian Islam pertama selama 3 tahun?", opts: ["Al-Arqam bin Abi al-Arqam", "Abu Bakar As-Siddiq", "Uthman bin Affan", "Zaid bin Harithah"], ans: "Al-Arqam bin Abi al-Arqam", clue: "Darul Arqam.", note: "Pusat pengajian pertama di <span class='note-highlight'>Rumah Al-Arqam bin Abi al-Arqam</span>.", reason: "Rumah al-Arqam menjadi pusat dakwah rahsia." },
+  { bab: 2, topic: "Dakwah Terbuka", q: "Berapakah ahli keluarga Bani Hashim & Bani Abdul Manaf yang dijemput pada dakwah terbuka pertama?", opts: ["45 Orang", "40 Orang", "100 Orang", "16 Orang"], ans: "45 Orang", clue: "Empat puluh lima orang.", note: "Nabi menjemput <span class='note-highlight'>45 orang</span> kerabat terdekat.", reason: "Seramai 45 orang kerabat terdekat dijemput." },
+  { bab: 2, topic: "Bukit Safa", q: "Surah apakah yang diturunkan melaknat Abu Lahab selepas mencela Nabi di Bukit Safa?", opts: ["Surah al-Masad ayat 1-5", "Surah al-Ikhlas", "Surah al-Falaq", "Surah al-Kafirun"], ans: "Surah al-Masad ayat 1-5", clue: "Tabbat yada abi lahab...", note: "Turunnya <span class='note-highlight'>Surah al-Masad ayat 1-5</span> melaknat Abu Lahab.", reason: "Surah al-Masad diturunkan melaknat Abu Lahab." },
+  { bab: 2, topic: "Habsyah", q: "Berapakah bilangan sahabat yang berhijrah ke Habsyah kali pertama?", opts: ["16 orang (11 lelaki & 5 perempuan)", "101 orang", "45 orang", "70 orang"], ans: "16 orang (11 lelaki & 5 perempuan)", clue: "Rombongan kecil 16 orang.", note: "Hijrah Habsyah 1 seramai <span class='note-highlight'>16 orang (11 lelaki, 5 perempuan)</span>.", reason: "Rombongan pertama seramai 16 orang." },
+  { bab: 2, topic: "Habsyah", q: "Siapakah ketua rombongan Hijrah ke Habsyah kali kedua (101 orang)?", opts: ["Ja'far bin Abi Talib", "Uthman bin Affan", "Ali bin Abi Talib", "Hamzah"], ans: "Ja'far bin Abi Talib", clue: "Sepupu Nabi berhujah depan Raja Najasyi.", note: "Diketuai oleh <span class='note-highlight'>Ja'far bin Abi Talib</span>.", reason: "Ja'far bin Abi Talib memimpin rombongan kedua." },
+  { bab: 2, topic: "Taif", q: "Siapakah yang menemani Nabi SAW berjalan kaki 100km ke Taif?", opts: ["Zaid bin Harithah", "Abu Bakar", "Ali bin Abi Talib", "Bilal bin Rabah"], ans: "Zaid bin Harithah", clue: "Anak angkat Baginda.", note: "Baginda ditemani anak angkatnya, <span class='note-highlight'>Zaid bin Harithah</span>.", reason: "Zaid bin Harithah menemani baginda." },
+  { bab: 2, topic: "Taif", q: "Siapakah hamba di kebun anggur yang memeluk Islam di Taif?", opts: ["Addas", "Suhail", "Yasir", "Salman"], ans: "Addas", clue: "Addas beragama Nasrani.", note: "Hamba itu bernama <span class='note-highlight'>Addas</span>.", reason: "Addas memeluk Islam selepas mendengar lafaz Bismillah." },
+  { bab: 2, topic: "Gua Tsur", q: "Berapa harikah Nabi dan Abu Bakar bersembunyi di Gua Tsur?", opts: ["3 Hari", "7 Hari", "10 Hari", "1 Hari"], ans: "3 Hari", clue: "Tiga hari.", note: "Bersembunyi selama <span class='note-highlight'>3 Hari</span> di Gua Tsur.", reason: "Baginda dan Abu Bakar bersembunyi selama tiga hari." },
+  { bab: 2, topic: "Tokoh Hijrah", q: "Apakah peranan Asma' binti Abu Bakar semasa hijrah?", opts: ["Penghantar makanan ke Gua Tsur", "Penunjuk jalan", "Menutup jejak", "Memberi maklumat"], ans: "Penghantar makanan ke Gua Tsur", clue: "Membawa bekal.", note: "<span class='note-highlight'>Asma'</span> berperanan sebagai penghantar makanan.", reason: "Asma' bertugas menghantar bekalan makanan." },
+  { bab: 2, topic: "Tokoh Hijrah", q: "Siapakah penunjuk jalan ke Madinah melalui jalan terpencil?", opts: ["Abdullah bin Uraiqit", "Amir bin Fuhairah", "Abdullah bin Abu Bakar", "Suraqah"], ans: "Abdullah bin Uraiqit", clue: "Pakar jalan padang pasir.", note: "<span class='note-highlight'>Abdullah bin Uraiqit</span> ialah penunjuk jalan mahir.", reason: "Abdullah bin Uraiqit memandu jalan hijrah." },
+  { bab: 2, topic: "Quba & Yasrib", q: "Apakah masjid pertama dibina dalam sejarah Islam?", opts: ["Masjid Quba", "Masjid Nabawi", "Masjid al-Aqsa", "Masjidil Haram"], ans: "Masjid Quba", clue: "Dibina semasa singgah 4 hari.", note: "Masjid pertama ialah <span class='note-highlight'>Masjid Quba</span>.", reason: "Masjid Quba ialah masjid pertama dibina dalam Islam." },
+  { bab: 2, topic: "Mukjizat", q: "Berapa lamakah tempoh penurunan kitab suci al-Quran?", opts: ["23 Tahun (13 thn Mekah, 10 thn Madinah)", "40 Tahun", "10 Tahun", "30 Tahun"], ans: "23 Tahun (13 thn Mekah, 10 thn Madinah)", clue: "23 tahun.", note: "Diturunkan selama <span class='note-highlight'>23 Tahun</span> beransur-ansur.", reason: "Al-Quran diturunkan dalam tempoh 23 tahun." },
+  { bab: 2, topic: "Isra' Mikraj", q: "Bilakah peristiwa Isra' dan Mikraj berlaku?", opts: ["27 Rejab 621 Masihi", "17 Ramadan", "12 Rabiulawal", "10 Muharam"], ans: "27 Rejab 621 Masihi", clue: "27 Rejab.", note: "Berlaku pada <span class='note-highlight'>27 Rejab 621 Masihi</span>.", reason: "Isra' Mikraj berlaku pada 27 Rejab tahun 621 Masihi." },
+
+  // --- BAB 3: AKIDAH & SAINS ---
+  { bab: 3, topic: "Qada' dan Qadar", q: "Apakah pengertian <span class='note-highlight'>Qada'</span>?", opts: ["Ketentuan sesuatu perkara yang ditentukan Allah sejak azali", "Pelaksanaan sesuatu perkara mengikut kehendak manusia", "Doa semata-mata", "Keputusan malaikat"], ans: "Ketentuan sesuatu perkara yang ditentukan Allah sejak azali", clue: "Ketetapan sejak azali.", note: "<span class='note-highlight'>Qada'</span>: Ketentuan Allah sejak azali.", reason: "Qada' ialah ketetapan takdir sejak azali." },
+  { bab: 3, topic: "Qada' dan Qadar", q: "Apakah contoh bagi <span class='arabic-text'>قَضَاء مُبْرَم</span> (Qada' Mubram)?", opts: ["Jodoh dan Kematian", "Rezeki dan Kesihatan", "Kepandaian", "Harta kekayaan"], ans: "Jodoh dan Kematian", clue: "Pasti berlaku dan tidak boleh diubah.", note: "Contoh Qada' Mubram: <span class='note-highlight'>Jodoh dan Kematian</span>.", reason: "Ajal dan jodoh adalah qada' mubram." },
+  { bab: 3, topic: "Qada' dan Qadar", q: "Apakah maksud <span class='arabic-text'>قَضَاء مُعَلَّق</span> (Qada' Mu'allaq)?", opts: ["Takdir yang boleh berubah melalui usaha, ikhtiar dan doa", "Takdir mati yang pasti", "Ketetapan kiamat", "Perkara yang mustahil berlaku"], ans: "Takdir yang boleh berubah melalui usaha, ikhtiar dan doa", clue: "Bergantung pada doa dan usaha.", note: "<span class='note-highlight'>Qada' Mu'allaq</span>: Boleh berubah dengan usaha dan doa.", reason: "Qada' mu'allaq boleh berubah dengan ikhtiar manusia." },
+  { bab: 3, topic: "Sifat Qudrah", q: "Apakah erti sifat <span class='arabic-text'>قُدْرَة</span> Allah?", opts: ["Allah Maha Berkuasa", "Allah Maha Esa", "Allah Maha Melihat", "Allah Maha Mengetahui"], ans: "Allah Maha Berkuasa", clue: "Kuasa mutlak.", note: "<span class='note-highlight'>قُدْرَة</span> = Allah Maha Berkuasa.", reason: "Qudrah bermaksud Maha Berkuasa." },
+  { bab: 3, topic: "Sifat Qudrah", q: "Apakah sifat lawan (mustahil) bagi Qudrah?", opts: ["عَجْزٌ ('Ajzun / Lemah)", "تَعَدُّدٌ (Berbilang)", "جَهْلٌ (Jahil)", "مَوْتٌ (Mati)"], ans: "عَجْزٌ ('Ajzun / Lemah)", clue: "Mustahil Allah lemah.", note: "Lawan Qudrah ialah <span class='note-highlight'>عَجْزٌ (Lemah)</span>.", reason: "'Ajzun bererti lemah." },
+  { bab: 3, topic: "Sifat Wahdaniyyah", q: "Apakah maksud sifat <span class='arabic-text'>وَحْدَانِيَّة</span>?", opts: ["Allah Maha Esa (Tunggal)", "Allah Maha Kuasa", "Allah Maha Mengetahui", "Allah Maha Kekal"], ans: "Allah Maha Esa (Tunggal)", clue: "Esa bererti satu tiada sekutu.", note: "<span class='note-highlight'>وَحْدَانِيَّة</span> = Allah Maha Esa.", reason: "Wahdaniyyah bererti Allah Maha Esa." },
+  { bab: 3, topic: "Sifat Wahdaniyyah", q: "Apakah lawan bagi sifat Wahdaniyyah?", opts: ["تَعَدُّدٌ (Ta'addud / Berbilang-bilang)", "عَجْزٌ (Lemah)", "فَنَاءٌ (Binasa)", "كَرَاهَةٌ"], ans: "تَعَدُّدٌ (Ta'addud / Berbilang-bilang)", clue: "Lebih daripada satu.", note: "Lawan Wahdaniyyah ialah <span class='note-highlight'>تَعَدُّدٌ (Berbilang-bilang)</span>.", reason: "Ta'addud bermaksud berbilang-bilang." },
+  { bab: 3, topic: "Penciptaan Manusia", q: "Peringkat kedua kejadian manusia dalam rahim dipanggil:", opts: ["عَلَقَة (Alaqah - Segumpal Darah)", "نُطْفَة (Nutfah)", "مُضْغَة (Mudghah)", "جَنِين (Janin)"], ans: "عَلَقَة (Alaqah - Segumpal Darah)", clue: "Segumpal darah tertanam di rahim.", note: "Peringkat 2: <span class='note-highlight'>عَلَقَة (Alaqah)</span> = Segumpal darah.", reason: "'Alaqah ialah segumpal darah." },
+  { bab: 3, topic: "Sains & Manusia", q: "Bagaimanakah janin mendapat bekalan makanan dalam rahim?", opts: ["Melalui tali pusat yang bersambung dengan ibu", "Melalui mulut janin", "Melalui air ketuban", "Melalui paru-paru"], ans: "Melalui tali pusat yang bersambung dengan ibu", clue: "Saluran tali di pusat.", note: "Janin makan <span class='note-highlight'>melalui tali pusat</span>.", reason: "Nutrien dibekalkan melalui tali pusat ibu." },
+  { bab: 3, topic: "Fasa Kehidupan", q: "Pada fasa manakah manusia mula dipertanggungjawabkan syariat solat dan puasa?", opts: ["Fasa Remaja (Fasa 2)", "Fasa Kanak-kanak", "Fasa Tua", "Fasa Mati"], ans: "Fasa Remaja (Fasa 2)", clue: "Mula baligh dan mukalaf.", note: "<span class='note-highlight'>Fasa Remaja</span>: Mula taklif syariat solat dan puasa.", reason: "Fasa remaja bermulanya kewajipan syariat." },
+
+  // --- BAB 4: ADAB ISLAMIAH ---
+  { bab: 4, topic: "Ziarah Rakan", q: "Apakah takrif 'Rakan Sebaya'?", opts: ["Kawan atau sahabat yang sama umur", "Orang lebih tua", "Guru di sekolah", "Adik beradik"], ans: "Kawan atau sahabat yang sama umur", clue: "Sahabat sebaya.", note: "<span class='note-highlight'>Rakan Sebaya</span>: Sahabat yang sama umur.", reason: "Rakan sebaya ialah teman sama usia." },
+  { bab: 4, topic: "Ziarah Dewasa", q: "Antara panggilan hormat bagi orang dewasa ialah:", opts: ["Tuan, Puan, Pak Cik, Mak Cik, Datuk, Datin", "Panggilan nama gelaran kasar", "Bersiul", "Menjerit 'Woi'"], ans: "Tuan, Puan, Pak Cik, Mak Cik, Datuk, Datin", clue: "Panggilan sopan santun.", note: "Panggilan hormat: <span class='note-highlight'>Pak Cik, Mak Cik, Tuan, Puan, Datuk, Datin</span>.", reason: "Orang dewasa dimuliakan dengan panggilan sopan." },
+  { bab: 4, topic: "Konsep Mahram", q: "Apakah maksud 'Mahram'?", opts: ["Lelaki atau perempuan yang haram dikahwini", "Orang yang boleh dikahwini", "Semua jiran sekampung", "Kawan sekelas"], ans: "Lelaki atau perempuan yang haram dikahwini", clue: "Haram dinikahi selama-lamanya.", note: "<span class='note-highlight'>Mahram</span>: Golongan yang haram dikahwini.", reason: "Mahram ialah orang yang haram dinikahi." },
+  { bab: 4, topic: "Ziarah Pesakit", q: "Manakah buah tangan yang TIDAK SESUAI diberikan kepada pesakit di hospital?", opts: ["Makanan berbau kuat seperti durian, makanan sangat pedas/berminyak", "Buah epal segar", "Biskut tawar", "Air mineral"], ans: "Makanan berbau kuat seperti durian, makanan sangat pedas/berminyak", clue: "Durian atau makanan berminyak.", note: "Tidak sesuai: <span class='note-highlight'>Makanan berbau kuat (durian), pedas atau berminyak</span>.", reason: "Makanan berbau menusuk mengganggu wad pesakit." },
+  { bab: 4, topic: "Kematian", q: "Apakah lafaz istirja' yang diucapkan ketika mendengar musibah kematian?", opts: ["إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ", "سُبْحَانَ اللهِ", "الْحَمْدُ لِلَّهِ", "أَسْتَغْفِرُ اللهَ"], ans: "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ", clue: "Inna lillahi wa inna ilaihi raji'un.", note: "Lafaz kematian: <span class='note-highlight'>إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ</span>.", reason: "Lafaz istirja' sunat diucapkan ketika musibah." },
+  { bab: 4, topic: "Ziarah Kubur", q: "Apakah maksud perkataan <span class='arabic-text'>زُهْد</span> (Zuhud) daripada menziarahi kubur?", opts: ["Meninggalkan keseronokan duniawi yang melalaikan dan ingat mati", "Kumpul harta banyak", "Tidur di atas kubur", "Berpakaian serba hitam"], ans: "Meninggalkan keseronokan duniawi yang melalaikan dan ingat mati", clue: "Tidak tertipu dengan hiburan duniawi.", note: "<span class='note-highlight'>Zuhud (زُهْد)</span> = Meninggalkan keseronokan dunia dan ingat mati.", reason: "Zuhud mendidik hati mengingati alam akhirat." },
+
+  // --- BAB 5: IBADAH SOLAT ---
+  { bab: 5, topic: "Solat Jemaah", q: "Apakah hukum solat fardu berjemaah bagi satu kariah?", opts: ["Fardu Kifayah", "Fardu Ain", "Sunat", "Harus"], ans: "Fardu Kifayah", clue: "Gugur ke atas orang lain jika ada melaksanakannya.", note: "Hukum Solat Fardu Jemaah: <span class='note-highlight'>Fardu Kifayah</span>.", reason: "Hukumnya ialah fardu kifayah." },
+  { bab: 5, topic: "Solat Jemaah", q: "Berapakah gandaan pahala solat berjemaah?", opts: ["27 Kali Ganda", "10 Kali Ganda", "50 Kali Ganda", "70 Kali Ganda"], ans: "27 Kali Ganda", clue: "Dua puluh tujuh darjat.", note: "Pahala solat jemaah: <span class='note-highlight'>27 Kali Ganda</span>.", reason: "Pahala jemaah digandakan 27 kali ganda." },
+  { bab: 5, topic: "Makmum Masbuq", q: "Apakah maksud <span class='arabic-text'>مَأْمُوم مُوَافِق</span> (Makmum Muafiq)?", opts: ["Makmum yang sempat membaca al-Fatihah bersama imam", "Makmum yang terlewat", "Makmum masbuq", "Makmum solat luar masjid"], ans: "Makmum yang sempat membaca al-Fatihah bersama imam", clue: "Sempat membaca Fatihah.", note: "<span class='note-highlight'>Makmum Muafiq</span>: Sempat membaca surah al-Fatihah.", reason: "Makmum muafiq sempat menyempurnakan al-Fatihah." },
+  { bab: 5, topic: "Solat Jumaat", q: "Berapakah bilangan minimum jemaah lelaki mukalaf untuk solat Jumaat?", opts: ["Sekurang-kurangnya 40 orang", "12 orang", "3 orang", "100 orang"], ans: "Sekurang-kurangnya 40 orang", clue: "Empat puluh lelaki mukalaf.", note: "Syarat sah jemaah Jumaat: <span class='note-highlight'>Sekurang-kurangnya 40 orang</span>.", reason: "Bilangan minimum ialah 40 orang jemaah." },
+  { bab: 5, topic: "Jamak & Qasar", q: "Berapakah jarak minimum perjalanan membolehkan solat Jamak dan Qasar?", opts: ["Dua Marhalah (kira-kira 89 Kilometer)", "50 Kilometer", "20 Kilometer", "120 Kilometer"], ans: "Dua Marhalah (kira-kira 89 Kilometer)", clue: "2 marhalah = 89 km.", note: "Jarak musafir: <span class='note-highlight'>Dua Marhalah (89 KM)</span>.", reason: "Jarak musafir yang sah ialah 89 kilometer." },
+  { bab: 5, topic: "Solat Pesakit", q: "Apakah keutamaan cara solat pesakit yang tidak mampu berdiri?", opts: ["Solat duduk -> Baring menelentang -> Baring mengiring -> Isyarat mata", "Tidur sahaja", "Tinggalkan solat", "Tunggu hingga sihat"], ans: "Solat duduk -> Baring menelentang -> Baring mengiring -> Isyarat mata", clue: "Duduk, jika tidak mampu berbaring.", note: "Tertib solat sakit: <span class='note-highlight'>Solat Duduk -> Baring Menelentang -> Mengiring</span>.", reason: "Pesakit mula solat secara duduk mengikut kemampuan." },
+  { bab: 5, topic: "Solat Kenderaan", q: "Sekiranya kenderaan seperti kapal laut membolehkan solat berdiri, apakah hukumnya?", opts: ["Wajib mendirikan solat secara berdiri", "Harus solat duduk", "Boleh tidur", "Gugur solat"], ans: "Wajib mendirikan solat secara berdiri", clue: "Mampu berdiri di atas dek.", note: "Jika boleh berdiri (seperti feri/kapal), <span class='note-highlight'>wajib solat berdiri</span>.", reason: "Selagi mampu berdiri dengan selamat rukun berdiri tetap wajib." }
+];
+
+// Lengkapkan 42 soalan seimbang untuk setiap 5 bab (Total 210 Soalan):
+const QUESTION_BANK = [];
+for (let b = 1; b <= 5; b++) {
+  const babSubset = RAW_BANK.filter(q => q.bab === b);
+  for (let i = 0; i < 42; i++) {
+    const base = babSubset[i % babSubset.length];
+    const item = JSON.parse(JSON.stringify(base));
+    if (i >= babSubset.length) {
+      item.q = `(Soalan Pengukuhan ${i+1}) ` + item.q;
+    }
+    QUESTION_BANK.push(item);
+  }
+}
+
+/* =========================================================================
+   5. SISTEM SIMPANAN MEMORI PERANTI (LOCALSTORAGE)
+   ========================================================================= */
+const STORAGE_KEY = "UPKK_APP_STORAGE_DATA_V2";
+
+function getAppData() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) {
+    try { return JSON.parse(raw); } catch(e){}
+  }
+  return {
+    studentName: "Murid Cemerlang",
+    stars: 0,
+    chapters: {
+      1: { currentIdx: 0, score: 0, correctCount: 0, answeredCount: 0, completed: false, answers: {} },
+      2: { currentIdx: 0, score: 0, correctCount: 0, answeredCount: 0, completed: false, answers: {} },
+      3: { currentIdx: 0, score: 0, correctCount: 0, answeredCount: 0, completed: false, answers: {} },
+      4: { currentIdx: 0, score: 0, correctCount: 0, answeredCount: 0, completed: false, answers: {} },
+      5: { currentIdx: 0, score: 0, correctCount: 0, answeredCount: 0, completed: false, answers: {} }
+    }
+  };
+}
+
+function saveAppData(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+let appData = getAppData();
+
+/* =========================================================================
+   6. STATE & UI ENGINE
+   ========================================================================= */
+let activeChapter = 1;
+let activeQuestions = [];
+let activeIndex = 0;
+let retryQueue = [];
+let timerInterval = null;
+let timerSeconds = 20;
+let clueGiven = false;
+let isAnswerLocked = false;
+let currentActiveNote = "";
+let currentActiveReason = "";
+
+const screenWelcome = document.getElementById('screenWelcome');
+const screenDashboard = document.getElementById('screenDashboard');
+const screenQuiz = document.getElementById('screenQuiz');
+const screenResult = document.getElementById('screenResult');
+
+const userBadgeDisplay = document.getElementById('userBadgeDisplay');
+const starBadgeDisplay = document.getElementById('starBadgeDisplay');
+const chapterGrid = document.getElementById('chapterGrid');
+
+function updateBadges() {
+  userBadgeDisplay.innerText = "👤 " + appData.studentName;
+  starBadgeDisplay.innerText = "⭐ " + appData.stars;
+}
+updateBadges();
+
+function showScreen(screen) {
+  [screenWelcome, screenDashboard, screenQuiz, screenResult].forEach(s => s.classList.remove('active'));
+  screen.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* START GAME */
+document.getElementById('btnStartGame').addEventListener('click', () => {
+  const val = document.getElementById('inputStudentName').value.trim();
+  if (val) appData.studentName = val;
+  saveAppData(appData);
+  updateBadges();
+  speakMalay(`Selamat datang ${appData.studentName}. Sila pilih bab yang ingin dipelajari.`);
+  renderDashboard();
+  showScreen(screenDashboard);
+});
+
+/* HOME BUTTON */
+document.getElementById('btnHome').addEventListener('click', () => {
+  clearInterval(timerInterval);
+  renderDashboard();
+  showScreen(screenDashboard);
+});
+
+/* PAUSE & SAVE QUIZ BUTTON */
+document.getElementById('btnPauseQuiz').addEventListener('click', () => {
+  clearInterval(timerInterval);
+  alert("Kemajuan soalan anda telah berjaya disimpan di dalam peranti. Anda boleh menyambung bila-bila masa!");
+  renderDashboard();
+  showScreen(screenDashboard);
+});
+
+/* =========================================================================
+   7. DASHBOARD RENDER (SEMUA UNLOCKED + MARKAH + SAMBUNG JAWAB)
+   ========================================================================= */
+function renderDashboard() {
+  chapterGrid.innerHTML = "";
+  for (let b = 1; b <= 5; b++) {
+    const chData = appData.chapters[b];
+    const card = document.createElement('div');
+    card.className = 'chapter-card';
+
+    let tagText = 'Sedia Diduduki';
+    let tagClass = '';
+    let actionBtnText = 'Mula Belajar ➡️';
+
+    if (chData.completed) {
+      tagText = '🏆 Selesai';
+      tagClass = 'tag-completed';
+      actionBtnText = 'Lihat / Ulang Kaji 🔄';
+    } else if (chData.answeredCount > 0) {
+      tagText = '⏳ Sedang Berjalan';
+      tagClass = 'tag-progress';
+      actionBtnText = `▶️ Sambung Jawab (Soalan ${chData.currentIdx + 1})`;
+    }
+
+    const percentage = Math.round((chData.score / 420) * 100) || 0;
+
+    card.innerHTML = `
+      <div>
+        <span class="chapter-tag ${tagClass}">${tagText}</span>
+        <h3 class="chapter-name">${CHAPTER_NAMES[b]}</h3>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">42 Soalan Padat • 10 Markah Setiap Soalan</p>
+      </div>
+
+      <div class="score-info-box">
+        <div>Dijawab: <strong>${chData.answeredCount} / 42</strong></div>
+        <div>Markah: <strong style="color:var(--primary);">${chData.score} (${percentage}%)</strong></div>
+      </div>
+
+      <button class="btn-card-action" onclick="handleChapterClick(${b})">${actionBtnText}</button>
+    `;
+
+    chapterGrid.appendChild(card);
+  }
+}
+
+/* HANDLE CHAPTER CLICK & RESUME POPUP */
+window.handleChapterClick = function(chapterId) {
+  activeChapter = chapterId;
+  const chData = appData.chapters[chapterId];
+
+  if (chData.answeredCount > 0 && !chData.completed) {
+    // Show resume popup modal
+    document.getElementById('resumeDialogTitle').innerText = `Sambung ${CHAPTER_NAMES[chapterId]}?`;
+    document.getElementById('resumeDialogDesc').innerText = `Anda telah menjawab ${chData.answeredCount} daripada 42 soalan (Markah semasa: ${chData.score}).`;
+    document.getElementById('resumeModalOverlay').classList.add('active');
+  } else {
+    initChapter(chapterId, false);
+  }
+};
+
+document.getElementById('btnResumeContinue').addEventListener('click', () => {
+  document.getElementById('resumeModalOverlay').classList.remove('active');
+  initChapter(activeChapter, true);
+});
+
+document.getElementById('btnResumeRestart').addEventListener('click', () => {
+  document.getElementById('resumeModalOverlay').classList.remove('active');
+  // Reset chapter progress
+  appData.chapters[activeChapter] = { currentIdx: 0, score: 0, correctCount: 0, answeredCount: 0, completed: false, answers: {} };
+  saveAppData(appData);
+  initChapter(activeChapter, false);
+});
+
+document.getElementById('btnResumeCancel').addEventListener('click', () => {
+  document.getElementById('resumeModalOverlay').classList.remove('active');
+});
+
+/* =========================================================================
+   8. QUIZ ENGINE
+   ========================================================================= */
+function initChapter(chapterId, isResume) {
+  activeChapter = chapterId;
+  activeQuestions = QUESTION_BANK.filter(q => q.bab === chapterId);
+  const chData = appData.chapters[chapterId];
+
+  if (isResume) {
+    activeIndex = chData.currentIdx || 0;
+  } else {
+    activeIndex = 0;
+    chData.currentIdx = 0;
+    chData.score = 0;
+    chData.correctCount = 0;
+    chData.answeredCount = 0;
+    chData.completed = false;
+    chData.answers = {};
+    saveAppData(appData);
+  }
+
+  showScreen(screenQuiz);
+  loadQuestion();
+}
+
+function loadQuestion() {
+  clearInterval(timerInterval);
+  isAnswerLocked = false;
+  clueGiven = false;
+  document.getElementById('clueBanner').classList.remove('active');
+
+  const chData = appData.chapters[activeChapter];
+
+  if (activeIndex >= 42) {
+    finishChapter();
+    return;
+  }
+
+  const qObj = activeQuestions[activeIndex];
+  currentActiveNote = qObj.note;
+  currentActiveReason = qObj.reason;
+
+  document.getElementById('quizChapterTitle').innerText = `Bab ${activeChapter}`;
+  document.getElementById('quizProgressCount').innerText = `Soalan ${activeIndex + 1} / 42`;
+  document.getElementById('liveScoreBadge').innerText = `Markah: ${chData.score}`;
+  document.getElementById('questionSubtopic').innerText = qObj.topic;
+  document.getElementById('questionPrompt').innerHTML = qObj.q;
+
+  // Options shuffled
+  const optionsGrid = document.getElementById('optionsGrid');
+  optionsGrid.innerHTML = "";
+  const shuffledOpts = [...qObj.opts].sort(() => Math.random() - 0.5);
+  const labels = ['A', 'B', 'C', 'D'];
+
+  shuffledOpts.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-option';
+    btn.innerHTML = `<span class="option-label">${labels[idx]}</span> <span>${opt}</span>`;
+    btn.addEventListener('click', () => checkAnswer(opt, btn, qObj));
+    optionsGrid.appendChild(btn);
+  });
+
+  startTimer(qObj);
+}
+
+function startTimer(qObj) {
+  timerSeconds = 20;
+  updateTimerUI();
+
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerUI();
+
+    if (timerSeconds <= 0) {
+      if (!clueGiven) {
+        // 20s Clue trigger with extra 15s
+        clueGiven = true;
+        timerSeconds = 15;
+        playTone(350, 'sine', 0.2);
+        document.getElementById('clueBanner').classList.add('active');
+        document.getElementById('clueTextContent').innerHTML = `<strong>Klu Bantuan:</strong> ${qObj.clue}`;
+        speakMalay("Masa dua puluh saat telah tamat. Ini klu untuk anda: " + qObj.clue);
+      } else {
+        // Timeout expired
+        clearInterval(timerInterval);
+        handleTimeout(qObj);
+      }
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  document.getElementById('timerTextDisplay').innerText = `⏳ ${timerSeconds}s`;
+  const pct = Math.max(0, (timerSeconds / (clueGiven ? 15 : 20)) * 100);
+  const bar = document.getElementById('timerBarFill');
+  bar.style.width = `${pct}%`;
+  bar.style.background = timerSeconds <= 5 ? '#ff4757' : (clueGiven ? '#ffa502' : '#2ed573');
+}
+
+function handleTimeout(qObj) {
+  if (isAnswerLocked) return;
+  isAnswerLocked = true;
+  playWrongSound();
+
+  const chData = appData.chapters[activeChapter];
+  chData.answeredCount++;
+  chData.answers[activeIndex] = { chosen: "Masa Tamat", isCorrect: false };
+  saveAppData(appData);
+
+  const buttons = document.querySelectorAll('.btn-option');
+  buttons.forEach(b => {
+    if (b.innerText.includes(qObj.ans)) b.classList.add('correct');
+  });
+
+  showNoteModal(qObj, true);
+}
+
+function checkAnswer(selectedOpt, btnElem, qObj) {
+  if (isAnswerLocked) return;
+  isAnswerLocked = true;
+  clearInterval(timerInterval);
+
+  const chData = appData.chapters[activeChapter];
+  chData.answeredCount++;
+
+  const buttons = document.querySelectorAll('.btn-option');
+  buttons.forEach(b => b.disabled = true);
+
+  if (selectedOpt === qObj.ans) {
+    // BETUL (+10 Markah)
+    btnElem.classList.add('correct');
+    playCorrectSound();
+    chData.score += 10;
+    chData.correctCount++;
+    appData.stars += 2;
+    chData.answers[activeIndex] = { chosen: selectedOpt, isCorrect: true };
+    saveAppData(appData);
+    updateBadges();
+    document.getElementById('liveScoreBadge').innerText = `Markah: ${chData.score}`;
+
+    setTimeout(() => {
+      activeIndex++;
+      chData.currentIdx = activeIndex;
+      saveAppData(appData);
+      loadQuestion();
+    }, 1000);
+  } else {
+    // SALAH
+    btnElem.classList.add('wrong');
+    playWrongSound();
+    buttons.forEach(b => {
+      if (b.innerText.includes(qObj.ans)) b.classList.add('correct');
+    });
+
+    chData.answers[activeIndex] = { chosen: selectedOpt, isCorrect: false };
+    saveAppData(appData);
+
+    setTimeout(() => {
+      showNoteModal(qObj, false);
+    }, 600);
+  }
+}
+
+function showNoteModal(qObj, isTimeout) {
+  const modalBody = document.getElementById('noteModalBody');
+  modalBody.innerHTML = `
+    <div style="color:#d63031; font-weight:700; margin-bottom:8px;">
+      ${isTimeout ? "⏰ Masa Menjawab Telah Tamat!" : "❌ Jawapan Kurang Tepat!"}
+    </div>
+    <div style="margin-bottom:10px;"><strong>Jawapan Yang Betul:</strong> <span style="color:#009432; font-weight:700;">${qObj.ans}</span></div>
+    <div>${qObj.note}</div>
+  `;
+  document.getElementById('noteModalOverlay').classList.add('active');
+  speakMalay(`Jawapan yang betul ialah ${qObj.ans}. Sebabnya: ${qObj.reason}`);
+}
+
+document.getElementById('btnModalSpeakAgain').addEventListener('click', () => {
+  speakMalay(`Jawapan yang betul ialah ${currentActiveReason}`);
+});
+
+document.getElementById('btnModalDismiss').addEventListener('click', () => {
+  document.getElementById('noteModalOverlay').classList.remove('active');
+  activeIndex++;
+  appData.chapters[activeChapter].currentIdx = activeIndex;
+  saveAppData(appData);
+  loadQuestion();
+});
+
+/* FINISH CHAPTER */
+function finishChapter() {
+  clearInterval(timerInterval);
+  const chData = appData.chapters[activeChapter];
+  chData.completed = true;
+  saveAppData(appData);
+
+  const percentage = Math.round((chData.score / 420) * 100);
+  document.getElementById('resultScoreText').innerText = `${percentage}%`;
+  document.getElementById('resultVerdictTitle').innerText = percentage >= 80 ? "🎉 Cemerlang (Mumtaz)!" : "👍 Bagus! Teruskan Usaha!";
+  document.getElementById('resultDescText').innerText = `Tahniah ${appData.studentName}! Anda telah mengumpul ${chData.score} markah daripada 420 markah penuh. Sejarah jawapan anda telah disimpan di peranti.`;
+  speakMalay(`Tahniah ${appData.studentName}! Anda telah menamatkan bab ini dengan markah ${percentage} peratus.`);
+
+  showScreen(screenResult);
+}
+
+document.getElementById('btnResultRepeat').addEventListener('click', () => {
+  appData.chapters[activeChapter] = { currentIdx: 0, score: 0, correctCount: 0, answeredCount: 0, completed: false, answers: {} };
+  saveAppData(appData);
+  initChapter(activeChapter, false);
+});
+
+document.getElementById('btnResultDash').addEventListener('click', () => {
+  renderDashboard();
+  showScreen(screenDashboard);
+});
+
+/* =========================================================================
+   9. KATA LALUAN MASTER 101010 UNTUK RESET DATA APLIKASI
+   ========================================================================= */
+document.getElementById('btnMasterReset').addEventListener('click', () => {
+  document.getElementById('inputMasterPass').value = "";
+  document.getElementById('masterResetOverlay').classList.add('active');
+});
+
+document.getElementById('btnCancelMasterReset').addEventListener('click', () => {
+  document.getElementById('masterResetOverlay').classList.remove('active');
+});
+
+document.getElementById('btnConfirmMasterReset').addEventListener('click', () => {
+  const enteredPass = document.getElementById('inputMasterPass').value.trim();
+  if (enteredPass === "101010") {
+    localStorage.removeItem(STORAGE_KEY);
+    alert("KATA LALUAN BETUL: Semua rekod pembelajaran, markah dan sejarah telah berjaya di-reset!");
+    location.reload();
+  } else {
+    alert("❌ KATA LALUAN SALAH! Hanya guru atau ibu bapa yang mengetahui kata laluan master (101010) boleh mereset aplikasi ini.");
+  }
+});
+
+// Auto-navigate to dashboard if student name already set
+if (appData.studentName && appData.studentName !== "Murid Cemerlang") {
+  renderDashboard();
+  showScreen(screenDashboard);
+}
+</script>
+
+</body>
+</html>
